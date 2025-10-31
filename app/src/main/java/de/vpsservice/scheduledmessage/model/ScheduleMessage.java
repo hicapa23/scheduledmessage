@@ -31,6 +31,6 @@ public class ScheduleMessage implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + sendTimeMillis + "]" + messageText + " - " + (sent ? "Enviado" : "Pendiente");
+        return "[" + sendTimeMillis + "]" + messageText + " - " + (sent ? "Enviado" : "Pendiente") + " " + phoneNumber;
     }
 }

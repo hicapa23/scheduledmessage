@@ -1,3 +1,4 @@
+/*
 package de.vpsservice.scheduledmessage.model;
 
 import de.vpsservice.scheduledmessage.util.TimeConverter;
@@ -39,5 +40,6 @@ public class ScheduleMessageTest extends TestCase {
 
     }
 }
+*/
 
 

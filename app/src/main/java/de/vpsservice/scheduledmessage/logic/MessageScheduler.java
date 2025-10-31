@@ -1,10 +1,13 @@
 package de.vpsservice.scheduledmessage.logic;
 
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.RequiresPermission;
 
 import de.vpsservice.scheduledmessage.model.ScheduleMessage;
 import de.vpsservice.scheduledmessage.receiver.TriggerReceiver;
@@ -20,15 +23,15 @@ public class MessageScheduler {
      *
      * @param context             Contexto de la aplicación
      * @param message             Instancia de ScheduledMessage
-     * @param selectedPhoneNumber
      */
-    public static void schedule(Context context, ScheduleMessage message, String selectedPhoneNumber) {
+    @RequiresPermission(Manifest.permission.SCHEDULE_EXACT_ALARM)
+    public static void schedule(Context context, ScheduleMessage message, String phoneNumber) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent( context, TriggerReceiver.class);
         intent.putExtra("messageText", message.messageText);
         intent.putExtra("sendTimeMillis", message.sendTimeMillis);
-        intent.putExtra("selectedPhoneNumber", selectedPhoneNumber);
+        intent.putExtra("selectedPhoneNumber", phoneNumber);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,

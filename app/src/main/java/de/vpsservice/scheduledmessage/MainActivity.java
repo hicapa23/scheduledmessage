@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private long selectedTimeMillis = -1;
     private MessageStore store;
 
-    private String selectedPhoneNumber = null;
+    private String phoneNumber = null;
 
     /**
      * Método de ciclo de vida que se ejecuta al iniciar la actividad.
@@ -69,22 +69,22 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void scheduleMessage() {
         String text = messageInput.getText().toString().trim();
-        if (text.isEmpty() || selectedTimeMillis == -1 || selectedPhoneNumber == null) {
+        if (text.isEmpty() || selectedTimeMillis == -1 || phoneNumber == null) {
             Toast.makeText(this, "Completa el mensaje, la hora y el contacto", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        ScheduleMessage msg = new ScheduleMessage(text, selectedTimeMillis, selectedPhoneNumber);
+        ScheduleMessage msg = new ScheduleMessage(text, selectedTimeMillis, phoneNumber);
         List<ScheduleMessage> messages = store.getAllMessages();
         messages.add(msg);
         store.overwriteMessages(messages);
 
-        MessageScheduler.schedule(this, msg, selectedPhoneNumber);
+        MessageScheduler.schedule(this, msg, phoneNumber);
         Toast.makeText(this, "Mensaje programado", Toast.LENGTH_SHORT).show();
 
         messageInput.setText("");
         timeButton.setText("Seleccionar hora");
-        selectedPhoneNumber = null;
+        phoneNumber = null;
         selectedTimeMillis = -1;
         refreshMessageList();
     }
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             itemLayout.setPadding(8, 8, 8, 8);
 
             TextView itemText = new TextView(this);
-            itemText.setText(msg.messageText + " → " + new Date(msg.sendTimeMillis) + msg.s);
+            itemText.setText(msg.messageText + " → " + new Date(msg.sendTimeMillis) + msg.phoneNumber);
             itemText.setTextSize(16);
             itemText.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
@@ -127,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ContactPickerHelper.CONTACT_PICK_REQUEST && resultCode == RESULT_OK) {
-            selectedPhoneNumber = ContactPickerHelper.extractPhoneNumber(this, data);
-            if (selectedPhoneNumber != null) {
-                Toast.makeText(this, "Número seleccionado: " + selectedPhoneNumber, Toast.LENGTH_SHORT).show();
+            phoneNumber = ContactPickerHelper.extractPhoneNumber(this, data);
+            if (phoneNumber != null) {
+                Toast.makeText(this, "Número seleccionado: " + phoneNumber, Toast.LENGTH_SHORT).show();
             }
         }
     }
