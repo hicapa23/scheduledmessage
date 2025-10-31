@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MensajePlan</string>
+    <string name="accessibility_description">Servicio para enviar mensajes programados en WhatsApp</string>
+    <string name="btn_programar"> Programar mensaje</string>
+    <string name="seleccionar_hora">Seleccionar hora</string>
+    <string name="escribe_tu_mensaje">Escribe tu mensaje</string>
+    <string name="seleccionar_fecha_y_hora">Seleccionar fecha y hora</string>
+    <string name="mensajes_programados">Mensajes programados</string>
+    <string name="elegir_contacto">Elegir contacto</string>
+</resources>
